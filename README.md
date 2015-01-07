@@ -1,8 +1,7 @@
-first_challenge
+ParkWhiz Interview Project (Rails)
 ===============
 
-ParkWhiz Interview Project
-The last thing ParkWhiz wants to do is sell a parking spot that doesn’t exist, so tracking inventory and scheduling parking stays is an important part of the app. 
+The last thing ParkWhiz wants to do is sell a parking spot that doesn't exist, so tracking inventory and scheduling parking stays is an important part of the app. 
 
 The technical portion of the interview will anchor on a small scheduling site you will create beforehand.  This project will be the focal point of a Q&A session, and the foundation for a group project you will work on with part of the development team. 
 
@@ -11,17 +10,21 @@ Plan to spend 1-2 hours on this project.
 Requirements
 ============
 
-Your app will provide 2 pages.  Included with this document you should have sample markup for each.
+Your app will provide 2 pages:
 
-Driver page allows drivers to enter a range of time in which they’d like to park.  The page then indicates whether parking is available, and if so, shows the price and allows them to book the time period.
+* The *Driver* page allows drivers to enter a range of time in which they’d like to park.  The page then indicates whether parking is available, and if so, shows the price and allows them to book the time period.
+* The *Admin Listings* page shows a table of parking listings with the availability and price for each.
 
-Admin Listings page shows a table of parking listings with the availability and price for each.
+The repository provides sample markup for each in the `public` directory. Additionally it serves as a skeleton Rails app and includes some basic models, a starting database schema, and seed data. Please use this as a starting point to create your app.
 
-1. Implement model location, that would describe parking location of Listing (address and city are fine enough details)
-2. Implement model seller, that can have locations (name is enough details for seller)
-3. When searched for current date, pick "Choice Parking" in interval 3pm to 5pm, there should be 1 spot available
-4. When searched for current date, in interval 3pm to 7pm, there should be no spots available
-5. Implement driver search page that will show available listings 
+After creating the inital models we thought of some specific changes we'd like to see:
+
+1. Implement a location model to represent a parking facility.  `name` and `address` fields are all that are required.  Refactor the Listing model accordingly.
+2. Implement a seller model to represent the company that owns or operates the parking location. A `name` attribute is all that is required. Refactor the Listing model accordingly.
+
+In addition to these two changes, as well as anything needed to meet the basic requirements, feel free to make any other changes you feel are important (and be prepared to talk through your choices).
+
+Keep in mind that accuracy is extremely important. Please ensure your app performs as expected, or (if you run out of time) that the areas in which it is not yet complete are clear.
 
 Some additional guidelines:
 ===========================
