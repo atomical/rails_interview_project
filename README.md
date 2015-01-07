@@ -30,7 +30,6 @@ Some additional guidelines:
 ===========================
 
 * Parking is available for a price if the maximum number of simultaneous bookings within the requested time period is less than the availability for that price
-* The lowest price available is shown to the driver.  Multiple prices allow the admin to set a limited number of low price spots that are sold first, followed by the higher priced inventory. 
 * You do not need to provide authentication or authorization
 * No checkout process (real or simulated) is required. The driver can simply book by clicking “Book now”
 
