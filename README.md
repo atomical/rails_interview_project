@@ -19,7 +19,7 @@ Admin Listings page shows a table of parking listings with the availability and 
 
 1. Implement model location, that would describe parking location of Listing (address and city are fine enough details)
 2. Implement model seller, that can have locations (name is enough details for seller)
-3. When searched for current date, in interval 3pm to 5pm, there should be 1 spot available
+3. When searched for current date, pick "Choice Parking" in interval 3pm to 5pm, there should be 1 spot available
 4. When searched for current date, in interval 3pm to 7pm, there should be no spots available
 5. Implement driver search page that will show available listings 
 

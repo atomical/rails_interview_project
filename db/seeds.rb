@@ -1,5 +1,5 @@
 puts "Creating listings"
-5.times { Listing.create(
+10.times { Listing.create(
   {
     seller_name: Faker::Company.name,
     location_name: Faker::Address.street_name + " parking",
@@ -12,20 +12,20 @@ puts "Creating listings"
   }
 ) }
 
+# update last record to create limited resource location
 l = Listing.last
 l.seller_name = "Choice Parking"
 l.min_parking_hours = 3
+l.available = 1
 l.save
 
 puts "Creating bookings"
-tstart = Faker::Time.forward(23, :day)
-tend = tstart + (3 + rand(3)).hours
 Booking.create([
   {
     customer_name: Faker::Name.name,
     plate_number: Faker::Number.number(7),
-    time_start: tstart,
-    time_end: tend,
+    time_start: DateTime.now.utc.beginning_of_day + 18.hours,
+    time_end: DateTime.now.utc.beginning_of_day + 22.hours,
     listing_id: l.id
   }
 ])
