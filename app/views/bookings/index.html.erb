@@ -1,0 +1,142 @@
+<% content_for :title do %>Book Parking<% end %>
+<div class="container">
+  <div class="row">
+    <div class="twelve columns">
+      <h1>Book parking</h1>
+    </div>
+  </div>
+
+  <%= form_tag(Booking.new) %>
+  <div class="row">
+    <div class="six columns">
+      Start time:
+      <select name="start-time" id="start-time">
+        <option value="00:00">12:00am</option>
+        <option value="01:00">01:00am</option>
+        <option value="02:00">02:00am</option>
+        <option value="03:00">03:00am</option>
+        <option value="04:00">04:00am</option>
+        <option value="05:00">05:00am</option>
+        <option value="06:00">06:00am</option>
+        <option value="07:00">07:00am</option>
+        <option value="08:00">08:00am</option>
+        <option value="09:00">09:00am</option>
+        <option value="10:00">10:00am</option>
+        <option value="11:00">11:00am</option>
+        <option value="12:00">12:00pm</option>
+        <option value="13:00">01:00pm</option>
+        <option value="14:00">02:00pm</option>
+        <option value="15:00">03:00pm</option>
+        <option value="16:00">04:00pm</option>
+        <option value="17:00">05:00pm</option>
+        <option value="18:00">06:00pm</option>
+        <option value="19:00">07:00pm</option>
+        <option value="20:00">08:00pm</option>
+        <option value="21:00">09:00pm</option>
+        <option value="22:00">10:00pm</option>
+        <option value="23:00">11:00pm</option>
+      </select>
+      <input type="text" name="start-date" id="start-date" class="date">
+    </div>
+    <div class="six columns">
+      End time:
+      <select name="end-time" id="end-time">
+        <option value="00:00">12:00am</option>
+        <option value="01:00" selected>01:00am</option>
+        <option value="02:00">02:00am</option>
+        <option value="03:00">03:00am</option>
+        <option value="04:00">04:00am</option>
+        <option value="05:00">05:00am</option>
+        <option value="06:00">06:00am</option>
+        <option value="07:00">07:00am</option>
+        <option value="08:00">08:00am</option>
+        <option value="09:00">09:00am</option>
+        <option value="10:00">10:00am</option>
+        <option value="11:00">11:00am</option>
+        <option value="12:00">12:00pm</option>
+        <option value="13:00">01:00pm</option>
+        <option value="14:00">02:00pm</option>
+        <option value="15:00">03:00pm</option>
+        <option value="16:00">04:00pm</option>
+        <option value="17:00">05:00pm</option>
+        <option value="18:00">06:00pm</option>
+        <option value="19:00">07:00pm</option>
+        <option value="20:00">08:00pm</option>
+        <option value="21:00">09:00pm</option>
+        <option value="22:00">10:00pm</option>
+        <option value="23:00">11:00pm</option>
+      </select>
+      <input type="text" name="end-date" id="end-date" class="date">
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <input type="button" id="check-availability" value="Check Availability">
+    </div>
+  </div>
+
+  <div style="display:none" class="row" id="parking-available">
+    <div class="nine columns">
+      <p>Parking is available from <span class="quote-start"></span> to <span class="quote-end"></span> for <strong>$<span class="quote-amount"></span></strong>.</p>
+    </div>
+    <div class="three columns">
+      <input type="submit" class="button-primary" value="Book now">
+    </div>
+  </div>
+
+  <div style="display:none" class="row" id="parking-not-available">
+    <div class="twelve columns">
+      <p>Parking is not available from <span class="quote-start"></span> to <span class="quote-end"></span>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- You may, but are not required use this script as a starting point. It's simply here to demonstrate functionality -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>
+  $(".date").datepicker();
+  $(".date").datepicker("setDate", new Date());
+
+  $("#check-availability").click(checkAvailability);
+
+  function checkAvailability(event) {
+    event.preventDefault();
+    var start = $("#start-date").val() + " " + $("#start-time").val();
+    var end = $("#end-date").val() + " " + $("#end-time").val();
+
+    $.ajax({
+      url: "<%= check_bookings_url %>",
+      context: document.body,
+      data: { 
+        'start-date' : $("#start-date").val(), 
+        'start-time' : $("#start-time").val(),
+        'end-date'   : $("#end-date").val(),
+        'end-time'   : $("#end-time").val(),
+      },
+      type: 'POST',
+    }).done(function(data) {
+      if ( data.booking.available ) {
+        parkingAvailable(start, end, Math.floor(data.booking.price));
+      } else {
+        parkingNotAvailable(start, end);
+      }
+    });
+  }
+
+  function parkingNotAvailable(start, end) {
+    $(".quote-start").html(start);
+    $(".quote-end").html(end);
+    $("#parking-available").hide();
+    $("#parking-not-available").show();
+  }
+  function parkingAvailable(start, end, amount) {
+    $(".quote-start").html(start);
+    $(".quote-end").html(end);
+    $(".quote-amount").html(amount);
+    $("#parking-available").show();
+    $("#parking-not-available").hide();
+  }
+</script>
+

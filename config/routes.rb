@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  get 'bookings/create'
+  root 'bookings#index'
+
+  resources :admin, only: [:index]
+  resources :listings, only: [:edit]
+  resources :bookings, only: [:index, :show, :create] do 
+    collection do 
+      post :check
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

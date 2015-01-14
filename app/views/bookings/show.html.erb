@@ -1,0 +1,22 @@
+<% content_for :title do %>Your Parking Reservation<% end %>
+<div class="section hero">
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <h4 class="hero-heading">Thanks for using ParkWhiz!</h4>
+      </div>
+      
+      You just booked a reservation at <b><%= @booking.listing.location.address %></b> in <b><%= @booking.listing.location.city %></b>.
+
+      <ul>
+        <li>
+          Where: <%= @booking.listing.location.address %>, <%= @booking.listing.location.city %>
+        </li>
+        <li>
+          Starts: <%= @booking.time_start.strftime("%B %e, %Y at %H:%M%p") %> (<%= booking_duration_in_hours(@booking)%> hours)
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

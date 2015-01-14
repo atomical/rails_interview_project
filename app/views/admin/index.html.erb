@@ -1,0 +1,30 @@
+<% content_for :title do %>Admin Listings<% end %>
+<div class="container">
+  <div class="row">
+    <div class="twelve columns">
+      <h1>Listings</h1>
+      <table class="u-full-width">
+        <thead>
+          <tr>
+            <th>Seller</th>
+            <th>Number of spaces</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @listings.each do |l| %>
+            <tr>
+              <td><%= l.seller.name %></td>
+              <td><%= l.available %></td>
+              <td><%= l.location.city %></td>
+              <td><%= number_to_currency(l.price_per_hour) %></td>
+              <td><%= link_to 'Edit', edit_listing_path(l) %>
+            </tr>            
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
